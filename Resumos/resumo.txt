@@ -1,0 +1,10 @@
+Podemos criar um novo projeto ou usar um existente. 
+Para criar um novo vá até o github e no alto da página clique em "Dashboard" e depois em "New Repository".
+Crie um espaço para o projeto no comnputador
+ Adicionar o repositório, neste exemplo vou usar um que criei para este tutorial, pode ser também o repositório criado no passo 1, 
+o endereço fica na página do projeto (neste caso https://github.com/codexico/tutorial-github):
+Formato do comando:
+"git remote add" adiciona um repositório ao git que foi iniciado neste diretório, "origin" 
+é o apelido para o projeto, "git@github.com:codexico/tutorial-github.git" é o endereço do projeto.
+Resultado:(apareceu a parte [remote "origin"])
+ Baixar(pull=puxar) o projeto
