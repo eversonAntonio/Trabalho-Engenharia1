@@ -1,0 +1,5 @@
+Refazer tabela de esforços com os mesmos campos da tabela de estimativas;
+Decidir quais parametros da tabela para cálculo do cocomo intermediário serão utilizados;
+Refazer o cálculo do cocomo intermediário;
+Refazer o cálculo do cocomo avançado;
+Atualizar slides;
