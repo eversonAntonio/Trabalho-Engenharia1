@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 /**
  *
@@ -24,7 +25,7 @@ public class PessoaDAO {
     public void salvar(Pessoa p) throws SQLException {
         String sql = "INSERT INTO pessoa (nome, cidade, email) VALUES (?, ?, ?)";
 
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql, RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, p.getNome());
             ps.setString(2, p.getCidade());
@@ -62,7 +63,7 @@ public class PessoaDAO {
                 + "WHERE idPessoa = ?";
 
         try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
-                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+                sql)) {
 
             ps.setInt(1, p.getIdPessoa());
             ps.setString(2, p.getNome());
