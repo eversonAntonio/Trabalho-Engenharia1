@@ -8,7 +8,9 @@ package dbunit.Modelos.DAO;
 import dbunit.Modelos.Bean.Pessoa;
 import java.io.IOException;
 import java.sql.SQLException;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -19,32 +21,50 @@ public class PessoaDAOTest {
 
     PessoaDAO p = new PessoaDAO();
 
-    @Test
+    //@Test
     public void testSalvar() throws IOException, SQLException {
-        Pessoa pessoa = p.obter(2);
+        Pessoa pessoa = p.obter(3);
         pessoa.setNome("Diego");
         p.salvar(pessoa);
         Assert.assertNotNull(pessoa);
         Assert.assertEquals("Diego", pessoa.getNome());
     }
 
-    @Test
+    //@Test
     public void testObter() throws IOException, SQLException {
-        Pessoa pessoa = p.obter(2);
+        Pessoa pessoa = p.obter(3);
         Assert.assertNotNull(pessoa);
-        Assert.assertEquals("Jane", pessoa.getNome());
+        Assert.assertEquals("Donna", pessoa.getNome());
+        Assert.assertEquals("Banyulegi", pessoa.getCidade());
+        Assert.assertEquals("dwillis2@epa.gov", pessoa.getEmail());
+        Assert.assertEquals(3, pessoa.getIdPessoa());
     }
 
     @Test
     public void testAtualizar() throws IOException, SQLException {
-        Pessoa pessoa = p.obter(1);
+        Pessoa pessoa = p.obter(3);
         pessoa.setNome("Diegão");
         p.atualizar(pessoa);
         Assert.assertNotNull(pessoa);
-        Assert.assertEquals("Diegão", pessoa.getNome());
+        //Assert.assertEquals("Diegão", pessoa.getNome());
     }
 
-    @Test
-    public void testApagar() {
+    //@Test
+    public void testApagar() throws SQLException, IOException {
+        Pessoa pessoa = p.obter(2);
+        pessoa.setNome("Jane");
+        p.salvar(pessoa);
+        p.apagar(pessoa);
+        Assert.assertEquals("Jane", pessoa.getNome());
+    }
+    
+    @Before
+    public void adicionaPraTeste(){
+        
+    }
+    
+    @After
+    public void aconteceDepois(){
+        
     }
 }

@@ -59,17 +59,16 @@ public class PessoaDAO {
     }
 
     public void atualizar(Pessoa p) throws IOException, SQLException {
-        String sql = "UPDATE pessoa SET (idPessoa = ?, nome = ?, cidade = ?, email = ?) "
+        String sql = "UPDATE pessoa SET (nome = ?, cidade = ?, email = ?) "
                 + "WHERE idPessoa = ?";
 
         try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
-                sql)) {
+                sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
 
-            ps.setInt(1, p.getIdPessoa());
-            ps.setString(2, p.getNome());
-            ps.setString(3, p.getCidade());
-            ps.setString(4, p.getEmail());
-            ps.setInt(5, p.getIdPessoa());
+            ps.setString(1, p.getNome());
+            ps.setString(2, p.getCidade());
+            ps.setString(3, p.getEmail());
+            ps.setInt(4, p.getIdPessoa());
 
             ps.executeUpdate();
         }
