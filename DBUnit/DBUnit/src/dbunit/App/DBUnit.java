@@ -21,13 +21,18 @@ public class DBUnit {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        try {
-            Pessoa p = new PessoaDAO().obter(10);
-            System.out.println("Nome: " + p.getNome());
-        } catch (IOException | SQLException ex) {
-            System.err.println(ex);
-        }
+    public static void main(String[] args) throws SQLException {
+
+        Pessoa p = new Pessoa();
+        p.setIdPessoa(101);
+        p.setNome("Diego");
+        p.setEmail("diego.dalto@hotmail.com");
+        p.setCidade("Coxim");
+        
+         PessoaDAO teste = new PessoaDAO();
+         teste.salvar(p);
+        
+
     }
-    
+
 }

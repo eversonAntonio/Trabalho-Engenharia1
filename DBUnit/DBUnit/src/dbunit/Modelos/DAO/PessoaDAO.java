@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 /**
@@ -87,5 +88,31 @@ public class PessoaDAO {
     public void apagar(Pessoa p) throws IOException, SQLException {
         apagar(p.getIdPessoa());
     }
+    
+    /*
+        public boolean login(String nome, int password) throws IOException, SQLException {
+        String sql = "SELECT * FROM pessoa WHERE idPessoa = ? AND nome = ?";
+       Connection conn = db.getConnection(); 
+       Statement stmt = conn.createStatement();
+             
+            ResultSet rs = stmt.executeQuery(sql);
+                while (rs.next()) {
+                    String n = rs.getString("nome");
+                    int p = rs.getInt("idPessoa");
+                    if(n.equals(nome) && p == password){
+                        return true;
+                    }
+                     
+                  
+        }
+        return false;
+        }
+       
+       */
+        
+      
+    }
+    
+    
 
-}
+

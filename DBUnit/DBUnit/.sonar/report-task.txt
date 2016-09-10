@@ -1,0 +1,5 @@
+projectKey=org.sonarqube:java-DBUnit
+serverUrl=http://localhost:9000
+dashboardUrl=http://localhost:9000/dashboard/index/org.sonarqube:java-DBUnit
+ceTaskId=AVcV1XCQXIPPv67yzyMx
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVcV1XCQXIPPv67yzyMx
