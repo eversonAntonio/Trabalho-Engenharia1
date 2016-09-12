@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 /**
@@ -24,18 +23,36 @@ public class PessoaDAO {
     protected Database db = new Database();
 
     public void salvar(Pessoa p) throws SQLException {
-        String sql = "INSERT INTO pessoa (nome, cidade, email) VALUES (?, ?, ?)";
+        if (p.getIdPessoa() != 0) {
+            String sql = "INSERT INTO pessoa (idPessoa, nome, cidade, email) VALUES (?, ?, ?, ?)";
+            try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql, RETURN_GENERATED_KEYS)) {
 
-        try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql, RETURN_GENERATED_KEYS)) {
+                ps.setInt(1, p.getIdPessoa());
+                ps.setString(2, p.getNome());
+                ps.setString(3, p.getCidade());
+                ps.setString(4, p.getEmail());
 
-            ps.setString(1, p.getNome());
-            ps.setString(2, p.getCidade());
-            ps.setString(3, p.getEmail());
+                ps.executeUpdate();
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.first()) {
+                        p.setIdPessoa(rs.getInt(1));
+                    }
+                }
+            }
+        } else {
+            String sql = "INSERT INTO pessoa (nome, cidade, email) VALUES (?, ?, ?)";
 
-            ps.executeUpdate();
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.first()) {
-                    p.setIdPessoa(rs.getInt(1));
+            try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql, RETURN_GENERATED_KEYS)) {
+
+                ps.setString(1, p.getNome());
+                ps.setString(2, p.getCidade());
+                ps.setString(3, p.getEmail());
+
+                ps.executeUpdate();
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.first()) {
+                        p.setIdPessoa(rs.getInt(1));
+                    }
                 }
             }
         }
@@ -60,7 +77,7 @@ public class PessoaDAO {
     }
 
     public void atualizar(Pessoa p) throws IOException, SQLException {
-        String sql = "UPDATE pessoa SET (nome = ?, cidade = ?, email = ?) "
+        String sql = "UPDATE pessoa SET nome = ?, cidade = ?, email = ? "
                 + "WHERE idPessoa = ?";
 
         try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(
@@ -88,31 +105,5 @@ public class PessoaDAO {
     public void apagar(Pessoa p) throws IOException, SQLException {
         apagar(p.getIdPessoa());
     }
-    
-    /*
-        public boolean login(String nome, int password) throws IOException, SQLException {
-        String sql = "SELECT * FROM pessoa WHERE idPessoa = ? AND nome = ?";
-       Connection conn = db.getConnection(); 
-       Statement stmt = conn.createStatement();
-             
-            ResultSet rs = stmt.executeQuery(sql);
-                while (rs.next()) {
-                    String n = rs.getString("nome");
-                    int p = rs.getInt("idPessoa");
-                    if(n.equals(nome) && p == password){
-                        return true;
-                    }
-                     
-                  
-        }
-        return false;
-        }
-       
-       */
-        
-      
-    }
-    
-    
 
-
+}

@@ -5,8 +5,6 @@
  */
 package dbunit.Modelos.Bean;
 
-
-
 /**
  *
  * @author PC
